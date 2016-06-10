@@ -34,7 +34,11 @@ public class ProductoWebService {
     public String IngresarProducto(@WebParam(name = "codigo") String codigo, @WebParam(name = "nombre") String nombre, @WebParam(name = "precio") double precio, @WebParam(name = "stock") int stock, @WebParam(name = "descripcion") String descripcion) {
         Producto p = new Producto(codigo, nombre, precio, stock, descripcion);
         ProductoDAO productoDAO = new ProductoDAO();
-        productoDAO.ingresarProducto(p);
+        try{
+            productoDAO.ingresarProducto(p);
+        }catch(Exception ex){
+            return "El codigo de producto ingresado ya existe";
+        }
         return "Producto ingresado correctamente";
     }
 
